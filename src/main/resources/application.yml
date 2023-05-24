@@ -1,0 +1,10 @@
+server:
+  port: 4001
+
+logging:
+  pattern:
+    file: /k8s-log-test-%d{yyyy-MM-dd}.%i.log
+  file:
+    path: /var/log/test
+  level:
+    root: INFO
