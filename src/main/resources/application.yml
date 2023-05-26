@@ -1,10 +1,20 @@
 server:
-  port: 4001
+  port: 4002
 
-logging:
-  pattern:
-    file: /k8s-log-test-%d{yyyy-MM-dd}.%i.log
-  file:
-    path: /var/log/test
-  level:
-    root: INFO
+# spring:
+#   profiles:
+#     active: dev
+
+# logging:
+#   pattern:
+#     file: /k8s-log-test
+#   file:
+#     path: /var/log/test
+#   level:
+#     root: INFO
+
+# log:
+#   config:
+#     path: /var/log/test
+#     filename: k8s-log-test
+    

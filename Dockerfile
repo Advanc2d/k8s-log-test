@@ -6,12 +6,11 @@
 #RUN mkdir -p /var/log/test
 #CMD ["java", "-jar", "/k8s-log-test.jar", "--logging.file=/var/log/test/k8s-log-test-%d{yyyy-MM-dd}.%i.log"]
 
-FROM maven:3.8.4-openjdk-11 AS builder
-WORKDIR /app
-COPY . .
-RUN mvn clean package
-
 FROM openjdk:11
-WORKDIR /app
-COPY --from=builder /app/target/k8s-log-test.jar .
-CMD ["java", "-jar", "k8s-log-test.jar", "--logging.file=/var/log/test/k8s-log-test-%d{yyyy-MM-dd}.%i.log"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} k8s-log-test.jar
+ENV SPRING_PROFILES_ACTIVE=prod
+ENV LOG_PATH=/var/log/test
+ENV LOG_FILE_NAME=k8s-log-test
+RUN mkdir -p /var/log/test
+ENTRYPOINT ["java", "-jar", "/k8s-log-test.jar"]

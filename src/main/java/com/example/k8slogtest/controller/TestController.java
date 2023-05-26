@@ -13,12 +13,14 @@ public class TestController {
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
     @GetMapping("/log")
     public String logTest() {
+        String podName = System.getenv("HOSTNAME");
+        log.info("파드 이름: " + podName);
         logger.trace("This is an trace log message");
         logger.debug("This is an debug log message");
-        logger.info("This is an info log message");
+        logger.info("This is an info log message : " + podName);
         logger.warn("This is an warn log message");
         logger.error("This is an error log message");
 
-        return "log Test 완료!";
+        return "log Test 완료! in " + podName;
     }
 }
