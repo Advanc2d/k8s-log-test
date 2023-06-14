@@ -8,18 +8,21 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 
 @Service
-@RequiredArgsConstructor
 public class RedisService {
-    private final RedisTemplate redisTemplate;
 
-    // 데이터 넣기
-    public void setValues(String name, String age){
-        ValueOperations<String, String> values = redisTemplate.opsForValue();
-        values.set(name, age, Duration.ofMinutes(1)); // 1분 뒤 메모리에서 삭제된다.
+    private final RedisTemplate<String, String> redisTemplate;
+    private final ValueOperations<String, String> valueOperations;
+
+    public RedisService(RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+        this.valueOperations = redisTemplate.opsForValue();
     }
-    // 데이터 가져오기
-    public String getValues(String name){
-        ValueOperations<String, String> values = redisTemplate.opsForValue();
-        return values.get(name);
+
+    public void setValue(String key, String value) {
+        valueOperations.set(key, value);
+    }
+
+    public String getValue(String key) {
+        return valueOperations.get(key);
     }
 }

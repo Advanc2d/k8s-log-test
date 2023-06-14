@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.HashMap;
 
@@ -44,14 +46,16 @@ public class TestController {
         return "log Test 완료! in " + podName;
     }
 
-    @GetMapping("/redis")
-    public String getRedisStringValue(/*@RequestBody HashMap<String, String> body*/) {
-        redisService.setValues("name", "박현민"/*body.get("name"), body.get("age")*/);
-        String podName = System.getenv("HOSTNAME");
-        log.info("파드 이름: " + podName);
-        log.info("redis Test : " + redisService.getValues("name"));
+    @GetMapping("/redis/set/{key}/{value}")
+    public String setRedisValue(@PathVariable String key, @PathVariable String value) {
+        redisService.setValue(key, value);
+        return "Value set successfully!";
+    }
 
-        return "redis Test 완료! in " + podName;
+    @GetMapping("/redis/get/{key}")
+    public String getRedisValue(@PathVariable String key) {
+        String value = redisService.getValue(key);
+        return "Value: " + value;
     }
 
     @GetMapping("/database")
