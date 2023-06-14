@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:4003}
+  port: ${SERVER_PORT}
 
 management:
   endpoints:
@@ -9,14 +9,14 @@ management:
 
 spring:
   redis:
-    host: ${REDIS_SERVER:localhost}
-    port: ${REDIS_PORT:6379}
+    host: ${REDIS_SERVER}
+    port: ${REDIS_PORT}
   jpa:
     hibernate.ddl-auto: update
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:sso}
-    username: ${DB_USER:sso}
-    password: ${DB_PASSWORD:sso}
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 # spring:

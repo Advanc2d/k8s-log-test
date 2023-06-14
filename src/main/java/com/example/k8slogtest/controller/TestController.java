@@ -58,13 +58,31 @@ public class TestController {
         return "Value: " + value;
     }
 
-    @GetMapping("/database")
-    public @ResponseBody Iterable<User> database() {
+    @GetMapping("/database/save/{name}")
+    public @ResponseBody Iterable<User> save(@PathVariable String name) {
         User user = new User();
-        user.setName("k8s");
-        user.setEmail("k8s@k8s.com");
+        user.setName(name);
+        user.setEmail(name+"@"+name+".co.kr");
         userRepository.save(user);
 
         return userRepository.findAll();
     }
+
+    // @GetMapping("/database/save/{name}")
+    // public @ResponseBody Iterable<User> save(@PathVariable String name) {
+    //     User user = new User();
+    //     user.setName(name);
+    //     user.setEmail(name+"@"+name+".co.kr");
+    //     userRepository.save(user);
+
+    //     return userRepository.findAll();
+    // }
+
+    // @GetMapping("/database/delete/{name}")
+    // public @ResponseBody Iterable<User> delete(@PathVariable String name) {
+    //     User user = userRepository.findByName(name);
+    //     userRepository.delete(user);
+
+    //     return userRepository.findAll();
+    // }
 }
