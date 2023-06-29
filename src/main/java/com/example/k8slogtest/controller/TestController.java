@@ -59,11 +59,17 @@ public class TestController {
     }
 
     @GetMapping("/database/save/{name}")
-    public @ResponseBody Iterable<User> save(@PathVariable String name) {
+    public @ResponseBody String save(@PathVariable String name) {
         User user = new User();
         user.setName(name);
         user.setEmail(name+"@"+name+".co.kr");
         userRepository.save(user);
+
+        return "Save! " + name + "Complete";
+    }
+
+    @GetMapping("/database/list")
+    public @ResponseBody Iterable<User> list() {
 
         return userRepository.findAll();
     }
